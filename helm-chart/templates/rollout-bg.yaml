@@ -1,10 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ include "helm-chart.fullname" . }}
   labels:
 {{ include "helm-chart.labels" . | indent 4 }}
 spec:
+  strategy:
+      strategy:
+    blueGreen: 
+      activeService: sample-app
+      previewService: sample-app-preview
+      autoPromotionEnabled: false
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
