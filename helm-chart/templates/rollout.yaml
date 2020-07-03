@@ -6,11 +6,15 @@ metadata:
 {{ include "helm-chart.labels" . | indent 4 }}
 spec:
   strategy:
-    blueGreen: 
-      activeService: sample-app
-      previewService: sample-app-preview
-      autoPromotionEnabled: false
-  replicas: {{ .Values.replicaCount }}
+    canary: #Indicates that the rollout should use the Canary strategy
+      maxSurge: "25%"
+      maxUnavailable: 0
+      steps:
+      - setWeight: 10
+      - pause: { duration: 1m }
+      - setWeight: 50
+      - pause: { duration: 2m }
+  replicas: 10
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "helm-chart.name" . }}
