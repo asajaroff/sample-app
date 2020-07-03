@@ -10,8 +10,8 @@ spec:
       maxSurge: "25%"
       maxUnavailable: 0
       steps:
-      - setWeight: 10
-      - pause: { duration: 1m }
+      - setWeight: 20
+      - pause: { }
       - setWeight: 50
       - pause: { duration: 2m }
   replicas: 10
