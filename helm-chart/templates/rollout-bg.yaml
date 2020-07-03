@@ -6,7 +6,6 @@ metadata:
 {{ include "helm-chart.labels" . | indent 4 }}
 spec:
   strategy:
-      strategy:
     blueGreen: 
       activeService: sample-app
       previewService: sample-app-preview
